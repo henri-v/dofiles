@@ -1,0 +1,11 @@
+set guicursor=a:blinkon0
+set nowrap guioptions+=b guioptions-=T
+set foldcolumn=1 columns=81
+if !exists("gui_autocommands_loaded")
+    let gui_autocommands_loaded=1
+    autocmd VimEnter *.cs set columns=100
+endif
+
+if has("win32") || has("win64")
+    set guifont=Consolas:h10,Lucida_Console:h10
+endif

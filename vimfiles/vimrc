@@ -1,0 +1,32 @@
+language messages en_US.UTF-8
+
+if has("win32") || has("win64")
+    set encoding=utf-8
+endif
+
+" call pathogen#infect()
+
+syntax enable
+filetype plugin on
+set backspace=indent,eol
+set updatetime=1000  " spell checking
+highlight SpellBad term=underline cterm=underline ctermbg=Black 
+    \ ctermfg=DarkRed gui=undercurl guisp=Red
+set nomodeline
+set title
+set foldopen-=block
+set colorcolumn=81
+
+" nmap <silent> <F4> :FSHere<cr>
+cabbrev csf cs find f
+
+if !exists("autocommands_loaded")
+    let autocommands_loaded = 1
+    autocmd VimEnter .followup if line('.') != 1 | normal gq${j
+    autocmd BufRead,BufNewFile *.html,*.php,*.shtml,*.tex,svn-commit.tmp* 
+        \ setlocal textwidth=78
+    " autocmd BufRead,BufNewFile *.html,*.php,*.shtml,*.tex,svn-commit.tmp*
+    "    \ if exists(":VimchantSpellCheckOn") | VimchantSpellCheckOn
+    autocmd BufRead vimrc,gvimrc setlocal shiftwidth=4 softtabstop=4 
+        \ expandtab smarttab
+endif
