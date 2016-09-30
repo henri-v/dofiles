@@ -17,6 +17,10 @@ set title
 set foldopen-=block
 set colorcolumn=81
 
+if !has("gui_running")
+    set background=dark
+endif
+
 " nmap <silent> <F4> :FSHere<cr>
 cabbrev csf cs find f
 
