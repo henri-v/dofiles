@@ -23,6 +23,10 @@ fi
 type ruby >/dev/null && PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
 export PATH
 
+if [ -z "$SSH_AGENT_PID" ]; then
+	eval `ssh-agent`
+fi
+
 [ -x /usr/games/fortune ] && \
 	/usr/games/fortune
 
