@@ -33,16 +33,21 @@ setup_zsh() {
 	link_dotfiles zshrc zshenv zprofile
 }
 
+setup_tmux() {
+	link_dotfiles tmux.conf
+}
+
 setup_all() {
 	setup_git
 	setup_vim
 	setup_zsh
+	setup_tmux
 }
 
 command="$1"
 
 case "$command" in
-	all|zsh|vim|git)
+	all|tmux|zsh|vim|git)
 		setup_$command
 		;;
 	*)
