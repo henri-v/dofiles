@@ -1,0 +1,52 @@
+#!/bin/sh
+
+dotfiles_dir="`dirname "$0"`"
+
+if [ "`pwd`" != "$HOME" ] && [ "$1" != "-f" ]; then
+	echo >&2 "The script should be run in your home directory. To force it"
+	echo >&2 "to run anyway, give option -f"
+	exit 1
+fi
+
+[ "$1" = "-f" ] && shift
+
+link_dotfiles() {
+	while [ $# -gt 0 ]; do
+		ln -s "$dotfiles_dir/$1" ".$1"
+		shift
+	done
+}
+
+setup_git() {
+	git config --global user.name "Henri Vettenranta"
+	git config --global user.email heto88@gmail.com
+	git config --global core.excludesfile "$dotfiles_dir/gitexcludes"
+}
+
+setup_vim() {
+	ln -s "$dotfiles_dir/vimfiles/vimrc" .vimrc
+	ln -s "$dotfiles_dir/vimfiles/gvimrc" .gvimrc
+	ln -s "$dotfiles_dir/vimfiles" .vim
+}
+
+setup_zsh() {
+	link_dotfiles zshrc zshenv zprofile
+}
+
+setup_all() {
+	setup_git
+	setup_vim
+	setup_zsh
+}
+
+command="$1"
+
+case "$command" in
+	all|zsh|vim|git)
+		setup_$command
+		;;
+	*)
+		echo >&2 "Unknown command: $command"
+		exit 1
+		;;
+esac
