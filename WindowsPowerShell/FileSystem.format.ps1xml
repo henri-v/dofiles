@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Configuration>
+
+	<!-- This file has been inspired by FileSystem.format.ps1xml shipped with
+	     PowerShell. The reason for writing my own is that I prefer the wide
+	     format to the otherwise default table format.
+	 -->
+
+	<!-- View definitions -->
+
+	<ViewDefinitions>
+		<View>
+			<Name>children</Name>
+			<ViewSelectedBy>
+				<!-- Defined in the XML from PowerShell -->
+				<SelectionSetName>FileSystemTypes</SelectionSetName>
+			</ViewSelectedBy>
+			<GroupBy>
+				<PropertyName>PSParentPath</PropertyName> 
+				<!-- The control is defined in FileSystem.format.ps1xml
+				     shipped with PowerShell -->
+				<CustomControlName>FileSystemTypes-GroupingFormat</CustomControlName>  
+			</GroupBy>
+			<WideControl>
+				<AutoSize/>
+				<WideEntries>
+					<WideEntry>
+						<WideItem>
+							<PropertyName>Name</PropertyName>
+						</WideItem>
+					</WideEntry>
+					<WideEntry>
+						<EntrySelectedBy>
+							<TypeName>System.IO.DirectoryInfo</TypeName>
+						</EntrySelectedBy>
+						<WideItem>
+							<PropertyName>Name</PropertyName>
+							<FormatString>[{0}]</FormatString>
+						</WideItem>
+					</WideEntry>
+				</WideEntries>
+			</WideControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>
