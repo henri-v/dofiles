@@ -10,6 +10,7 @@ goto :eof
 :all
 call :git
 call :vim
+call :powershell
 goto :eof
 
 :git
@@ -39,5 +40,10 @@ rem Spaces seem to be fine with the source command.
 echo source %~dp0vimfiles\vimrc >>"%UserProfile%\_vimrc"
 
 echo source %~dp0vimfiles\gvimrc >"%UserProfile%\_gvimrc"
+
+goto :eof
+
+:powershell
+mklink /j "%USERPROFILE%\Documents\WindowsPowerShell" "%~dp0WindowsPowerShell"
 
 goto :eof
