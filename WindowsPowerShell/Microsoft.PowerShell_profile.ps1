@@ -27,6 +27,9 @@ function prompt {
 		$repo_name = [System.IO.Path]::GetFileName($git_toplevel)
 		$git_branch = git symbolic-ref --short HEAD |
 			Select-TruncatedString -MaxLength 20
+		if (-not $git_branch) {
+			$git_branch = git rev-parse --short HEAD
+		}
 		$gitstr = "$repo_name($git_branch) "
 	} else {
 		$gitstr = ""
