@@ -19,7 +19,10 @@ function prompt {
 
 	$curloc = $executionContext.SessionState.Path.CurrentLocation
 
-	$git_toplevel = git rev-parse --show-toplevel
+	$git_toplevel =
+		if ($curloc.Provider.Name -eq "FileSystem")
+		{ git rev-parse --show-toplevel } else { $null }
+
 	if ($git_toplevel) {
 		$repo_name = [System.IO.Path]::GetFileName($git_toplevel)
 		$git_branch = git symbolic-ref --short HEAD |
