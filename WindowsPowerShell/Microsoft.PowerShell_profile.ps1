@@ -17,6 +17,16 @@ function prompt {
 
 	$time = (Get-Date -DisplayHint Time).DateTime
 
+	$git_toplevel = git rev-parse --show-toplevel
+	if ($git_toplevel) {
+		$repo_name = [System.IO.Path]::GetFileName($git_toplevel)
+		$git_branch = git symbolic-ref --short HEAD |
+			Select-TruncatedString -MaxLength 20
+		$gitstr = "$repo_name($git_branch) "
+	} else {
+		$gitstr = ""
+	}
+
 	$curdir = $executionContext.SessionState.Path.CurrentLocation.Path
 	$shortcwd = `
 		if ($curdir -eq $env:USERPROFILE) { "~" }
@@ -32,5 +42,5 @@ function prompt {
 
 	$host.UI.RawUI.WindowTitle = "${env:COMPUTERNAME}: $shortcwd"
 
-	return "[$time] $shortcwd$exitstatusstr$promptchars "
+	return "[$time] $gitstr$shortcwd$exitstatusstr$promptchars "
 }
