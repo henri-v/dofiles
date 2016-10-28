@@ -17,6 +17,8 @@ function prompt {
 
 	$time = (Get-Date -DisplayHint Time).DateTime
 
+	$curloc = $executionContext.SessionState.Path.CurrentLocation
+
 	$git_toplevel = git rev-parse --show-toplevel
 	if ($git_toplevel) {
 		$repo_name = [System.IO.Path]::GetFileName($git_toplevel)
@@ -27,20 +29,20 @@ function prompt {
 		$gitstr = ""
 	}
 
-	$curdir = $executionContext.SessionState.Path.CurrentLocation.Path
-	$shortcwd = `
-		if ($curdir -eq $env:USERPROFILE) { "~" }
-		elseif ($curdir -match "^[^:\\/]+:\\$") { $curdir }
-		else {
-			$curdir.Split("\") |
-				Where-Object { -not ($_ -eq "") } |
+	$drive = $curloc.Drive.Name
+	$shortcwd = switch ($curloc.Path) {
+		$curloc.Provider.Home { "~" }
+		($drive + ":\") { "\" }
+		default {
+			$curloc.Path.Split("\") | Where-Object { $_ -ne "" } |
 				Select-Object -Last 1
 		}
+	}
 
 	$promptchar = if ($isAdmin) { "#" } else { ">" }
 	$promptchars = $promptchar * ($nestedPromptLevel + 1)
 
-	$host.UI.RawUI.WindowTitle = "${env:COMPUTERNAME}: $shortcwd"
+	$host.UI.RawUI.WindowTitle = "${env:COMPUTERNAME}: ${drive}:$shortcwd"
 
-	return "[$time] $gitstr$shortcwd$exitstatusstr$promptchars "
+	return "[$time] $gitstr${drive}:$shortcwd$exitstatusstr$promptchars "
 }
