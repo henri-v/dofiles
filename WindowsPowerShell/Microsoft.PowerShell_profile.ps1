@@ -19,6 +19,7 @@ function prompt {
 
 	$curdir = $executionContext.SessionState.Path.CurrentLocation.Path
 	$shortcwd = switch ($curdir) {
+		# TODO: drive root!
 		$env:USERPROFILE { "~" }
 		default {
 			$curdir.Split("\") |
