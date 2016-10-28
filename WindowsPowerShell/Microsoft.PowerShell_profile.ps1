@@ -4,7 +4,7 @@ $isAdmin = (New-Object System.Security.Principal.WindowsPrincipal(
 
 function prompt {
 	# The following should probably be first so that the latter commands
-	# won't trash its results.
+	# won't trash $?
 	$exitstatusstr = if ($?) { "" } else {
 		# If we haven't run any external executables yet, LASTEXITCODE
 		# does not seem to exist yet.
