@@ -18,15 +18,14 @@ function prompt {
 	$time = (Get-Date -DisplayHint Time).DateTime
 
 	$curdir = $executionContext.SessionState.Path.CurrentLocation.Path
-	$shortcwd = switch ($curdir) {
-		# TODO: drive root!
-		$env:USERPROFILE { "~" }
-		default {
+	$shortcwd = `
+		if ($curdir -eq $env:USERPROFILE) { "~" }
+		elseif ($curdir -match "^[^:\\/]+:\\$") { $curdir }
+		else {
 			$curdir.Split("\") |
 				Where-Object { -not ($_ -eq "") } |
 				Select-Object -Last 1
 		}
-	}
 
 	$promptchar = if ($isAdmin) { "#" } else { ">" }
 	$promptchars = $promptchar * ($nestedPromptLevel + 1)
