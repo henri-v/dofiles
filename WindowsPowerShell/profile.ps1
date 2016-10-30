@@ -11,14 +11,12 @@ function git-cdup {
 	Set-Location -Path $(git rev-parse --show-cdup)
 }
 
-function Select-TruncatedString($MaxLength=15) {
-	Process {
-		if ($_.Length -le $MaxLength) {
-			$_
-		} elseif ($MaxLength -gt 3) {
-			$_.Substring(0, $MaxLength - 3) + "..."
-		} else {
-			"...".Substring(0, $MaxLength)
-		}
+filter Select-TruncatedString($MaxLength=15) {
+	if ($_.Length -le $MaxLength) {
+		$_
+	} elseif ($MaxLength -gt 3) {
+		$_.Substring(0, $MaxLength - 3) + "..."
+	} else {
+		"...".Substring(0, $MaxLength)
 	}
 }
