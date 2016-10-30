@@ -7,6 +7,9 @@ Set-PSReadlineKeyHandler -Key Ctrl+I -Function Complete
 
 Update-FormatData -PrependPath $PSScriptRoot\FileSystem.format.ps1xml
 
+if (Get-Module -Name Pscx -ListAvailable) {
+	Import-Module Pscx -arg $PSScriptRoot\Pscx.UserPreferences.ps1
+}
 function git-cdup {
 	Set-Location -Path $(git rev-parse --show-cdup)
 }
