@@ -1,3 +1,5 @@
+if (Get-Module -ListAvailable posh-git) { Import-Module posh-git }
+
 $isAdmin = (New-Object System.Security.Principal.WindowsPrincipal(
 	[System.Security.Principal.WindowsIdentity]::GetCurrent())).
 	IsInRole("Administrators")
