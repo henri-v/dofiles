@@ -41,6 +41,7 @@ function prompt {
 	$shortcwd = switch ($curloc.Path) {
 		$curloc.Provider.Home { "~" }
 		($drive + ":\") { "\" }
+		# TODO output like c:\Windows when only one directory deep
 		default {
 			$curloc.Path.Split("\") | Where-Object { $_ -ne "" } |
 				Select-Object -Last 1
