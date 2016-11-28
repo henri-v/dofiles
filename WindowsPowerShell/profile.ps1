@@ -15,6 +15,11 @@ function git-cdup {
 	Set-Location -Path $(git rev-parse --show-cdup)
 }
 
+function lsrf([Parameter(Position=0)]$Filter) {
+	# TODO @args does not work yet
+	Get-ChildItem -File -Recurse -Filter $Filter @args
+}
+
 filter Select-TruncatedString($MaxLength=15) {
 	if ($_.Length -le $MaxLength) {
 		$_
