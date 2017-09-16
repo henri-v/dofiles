@@ -23,7 +23,7 @@ fi
 type ruby >/dev/null && PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
 export PATH
 
-if [ -z "$SSH_AGENT_PID" ]; then
+if ! ssh-add -l >/dev/null 2>&1; then
 	eval `ssh-agent`
 fi
 
