@@ -5,6 +5,8 @@ Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadlineKeyHandler -Key Ctrl+I -Function Complete
 
+Set-PSReadlineOption -HistorySearchCursorMovesToEnd
+
 Update-FormatData -PrependPath $PSScriptRoot\FileSystem.format.ps1xml
 
 if (Get-Module -Name Pscx -ListAvailable) {
