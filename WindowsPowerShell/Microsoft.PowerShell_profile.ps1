@@ -55,3 +55,9 @@ function prompt {
 
 	return "[$time] $gitstr${drive}:$shortcwd$exitstatusstr$promptchars "
 }
+
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path $ChocolateyProfile) {
+  Import-Module "$ChocolateyProfile"
+}
