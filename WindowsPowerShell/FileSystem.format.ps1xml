@@ -95,7 +95,7 @@
 					</TableColumnHeader>
 					<TableColumnHeader>
 						<Label>Length</Label>
-						<Width>14</Width>
+						<Width>6</Width>
 						<Alignment>right</Alignment>
 					</TableColumnHeader>
 					<TableColumnHeader>
@@ -116,7 +116,7 @@
 								</ScriptBlock>
 							</TableColumnItem>
 							<TableColumnItem>
-							<PropertyName>Length</PropertyName>
+								<ScriptBlock>if (Get-Member -inputobject $_ -name Length -MemberType Properties) { Format-PrettyLength $_.Length }</ScriptBlock>
 							</TableColumnItem>
 							<TableColumnItem>
 								<ScriptBlock>

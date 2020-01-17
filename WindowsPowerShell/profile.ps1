@@ -7,6 +7,22 @@ Set-PSReadlineKeyHandler -Key Ctrl+I -Function Complete
 
 Set-PSReadlineOption -HistorySearchCursorMovesToEnd
 
+function Format-PrettyLength([long]$Length) {
+	$Units = @("B", "K", "M", "G", "T", "P", "E")
+	$threshold = 1.5kb
+	[double]$lengthInUnit = $Length
+	$unit = 0
+	while (($unit + 1) -lt $Units.Length -and $lengthInUnit -gt $threshold) {
+		++$Unit
+		$lengthInUnit /= 1kb
+	}
+	if ($unit -gt 0 -and $lengthInUnit -lt 10) {
+		"{0:f1}{1}" -f $lengthInUnit, $Units[$unit]
+	} else {
+		"{0:f0}{1}" -f $lengthInUnit, $Units[$unit]
+	}
+}
+
 Update-FormatData -PrependPath $PSScriptRoot\FileSystem.format.ps1xml
 
 if (Get-Module -Name Pscx -ListAvailable) {
